@@ -6,6 +6,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.bdqn.liqi.entity.Student;
 import com.bdqn.liqi.service.IStudentService;
 
+/**
+ * test
+ * @author Administrator
+ *
+ */
 public class Test {
 	public static void main(String[] args) {
 		ApplicationContext applicationContext=
