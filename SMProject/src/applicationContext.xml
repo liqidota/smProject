@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- 加载db.properties文件  -->
+	<bean id="config" class=" org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+			<property name="locations">
+				<array>
+				<value>classpath:db.properties</value>		
+				</array>
+			</property>
+	</bean>
+	<!-- 配置数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${driver}"></property>
+		<property name="url" value="${url}"></property>
+		<property name="username" value="${username}"></property>
+		<property name="password" value="${password}"></property>
+		<property name="maxActive" value="${maxActive}"></property>
+	</bean>
+	
+	<!--在springIoc容器中创建myBatis的核心类SqlsessionFactory-->
+	<bean id="sqlsessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="dataSource" ref="dataSource"></property>
+			<property name="configLocation" value="classpath:conf.xml"></property>
+	</bean>
+	
+	
+	<bean id="StudentDaoImpl" class="com.bdqn.liqi.dao.impl.StudentDaoImpl">
+			<property name="sqlSessionFactory" ref="sqlsessionFactory"></property>
+	</bean>
+	
+	<bean id="StudentServiceImpl" class="com.bdqn.liqi.service.StudentServiceImpl">
+			<property name="studentMapper" ref="StudentDaoImpl"></property>
+	</bean>
+
+</beans>

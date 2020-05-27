@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bdqn.liqi.mapper.StudentMapper">
+	<select id="queryStudentByStuno" resultType="com.bdqn.liqi.entity.Student" parameterType="int">
+		select * from student where stuNo = #{stuNo}
+	</select>
+	
+	<insert id="add" parameterType="com.bdqn.liqi.entity.Student">
+	   insert into student (stu_name,stu_age) values(#{stu_name},#{stu_age})
+	</insert>
+</mapper>
